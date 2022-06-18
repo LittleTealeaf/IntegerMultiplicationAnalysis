@@ -2,13 +2,9 @@ package experiment;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Random;
-import java.util.function.IntSupplier;
 import java.util.function.IntUnaryOperator;
-import java.util.function.LongBinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
