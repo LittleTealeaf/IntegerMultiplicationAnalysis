@@ -27,23 +27,6 @@ public class Experiment {
         }
     }
 
-    // public long[][] runCycle() {
-    //     long[][] results = new long[BiglyIntFactory.values().length][values.length * values.length];
-
-    //     Stream.of(BiglyIntFactory.values()).parallel().forEach(factory -> {
-    //         IntStream.range(0, results[factory.ordinal()].length).parallel().forEach(i -> {
-    //             BiglyInt a = factory.create(values[i / values.length]);
-    //             BiglyInt b = factory.create(values[i % values.length]);
-    //             long start = System.nanoTime();
-    //             a.multiply(b);
-    //             long end = System.nanoTime();
-    //             results[factory.ordinal()][i] = end - start;
-    //         });
-    //     });
-
-    //     return results;
-    // }
-
     public void updateValues(int length) {
         Random random = new Random();
         IntStream.range(0, values.length).parallel().forEach(i -> {
@@ -92,7 +75,7 @@ public class Experiment {
     public static void main(String[] args) {
         Experiment experiment = new Experiment();
         try {
-            String results = CsvWriter.toCSV(experiment.runExperiment(2, 500000	, i -> (int) (i * 2)));
+            String results = CsvWriter.toCSV(experiment.runExperiment(2, 600000	, i -> (int) (i * 1.5)));
             FileWriter fileWriter = new FileWriter(new File("results.csv"));
             fileWriter.write(results);
             fileWriter.close();
