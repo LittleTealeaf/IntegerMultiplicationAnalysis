@@ -71,7 +71,7 @@ public class Experiment {
     public static void main(String[] args) {
         Experiment experiment = new Experiment();
         try {
-            String results = CsvWriter.toCSV(experiment.runExperiment(2, 600000	, i -> (int) (i * 1.5)));
+            String results = CsvWriter.toCSV(experiment.runExperiment(2, 1000000	, i -> (int) Math.ceil(i * 1.1)));
             FileWriter fileWriter = new FileWriter(new File("results.csv"));
             fileWriter.write(results);
             fileWriter.close();
