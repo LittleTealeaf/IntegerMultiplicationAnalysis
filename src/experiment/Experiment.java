@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Spliterator;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,8 +27,9 @@ public class Experiment {
     public void updateValues(int length) {
         Random random = new Random();
         IntStream.range(0, values.length).parallel().forEach(i -> {
-            if(values[i].length() < length) {
-                values[i] = values[i].concat(Stream.generate(() -> Integer.toString(random.nextInt(10))).limit(length - values[i].length()).collect(Collectors.joining()));
+            if (values[i].length() < length) {
+                values[i] = values[i].concat(IntStream.range(0, length - values[i].length()).parallel()
+                        .mapToObj((j) -> Integer.toString(random.nextInt(10))).collect(Collectors.joining()));
             }
         });
     }
@@ -49,8 +51,8 @@ public class Experiment {
             double[] vals = new double[results.length + 1];
             vals[0] = (double) len;
 
-            for(int i = 0; i < results.length; i++) {
-                vals[i+1] = results[i];
+            for (int i = 0; i < results.length; i++) {
+                vals[i + 1] = results[i];
             }
 
             System.out.println(" - Data Recorded: " + Arrays.toString(vals));
@@ -76,7 +78,8 @@ public class Experiment {
             fileWriter.write(results);
             fileWriter.close();
 
-        } catch(Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     static interface StepFunction {
